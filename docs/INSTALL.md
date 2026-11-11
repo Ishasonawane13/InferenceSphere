@@ -135,6 +135,21 @@ configured maximum iteration count is used. Results are written under
 degree-based top-100 overlap, and stability between half and full iteration
 counts.
 
+## Part 7 HITS
+
+Run the distributed custom HITS implementation:
+
+```bash
+python -m scripts.run_hits
+```
+
+Each iteration computes authority and hub sums with DataFrame joins and
+aggregations, then L2-normalizes both score vectors. Iteration results use
+local checkpoints to truncate lineage. Outputs are written to
+`data/results/hits` and `data/results/hits_evaluation.json`; the evaluation
+includes convergence deltas, runtime, and top-100 overlap/Spearman comparisons
+with PageRank when its output is available.
+
 ## Part 3 dataset download
 
 Preview the dataset download without downloading data:
