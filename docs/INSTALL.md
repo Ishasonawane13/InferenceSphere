@@ -120,6 +120,21 @@ distributed by vertex, so high-degree adjacency lists are not collected on the
 driver. Symmetric undirected input edges are counted as one logical edge for
 density and summary counts.
 
+## Part 6 PageRank
+
+Run PageRank on the cleaned directed graph from the project root:
+
+```bash
+python -m scripts.run_pagerank
+```
+
+The default reset probability is `0.15` (damping factor `0.85`) and the
+configured maximum iteration count is used. Results are written under
+`data/results/`: the full `pagerank` Parquet table, `top_100.csv`,
+`top_1000.csv`, and `pagerank_evaluation.json`. The evaluation records runtime,
+degree-based top-100 overlap, and stability between half and full iteration
+counts.
+
 ## Part 3 dataset download
 
 Preview the dataset download without downloading data:
