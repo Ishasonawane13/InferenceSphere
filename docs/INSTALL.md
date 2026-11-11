@@ -150,6 +150,21 @@ local checkpoints to truncate lineage. Outputs are written to
 includes convergence deltas, runtime, and top-100 overlap/Spearman comparisons
 with PageRank when its output is available.
 
+## Part 8 label propagation
+
+Run GraphFrames Label Propagation on the symmetrized undirected graph:
+
+```bash
+python -m scripts.run_label_propagation
+```
+
+Outputs include `data/results/communities`, a bounded dashboard sample under
+`data/results/community_sample/`, and
+`data/results/label_propagation_evaluation.json`. Modularity and community
+statistics use Spark aggregations. LPA is non-deterministic: repeated runs may
+produce different labels or unstable communities, which are not necessarily
+meaningful without domain validation.
+
 ## Part 3 dataset download
 
 Preview the dataset download without downloading data:
