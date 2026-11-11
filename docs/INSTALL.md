@@ -165,6 +165,21 @@ statistics use Spark aggregations. LPA is non-deterministic: repeated runs may
 produce different labels or unstable communities, which are not necessarily
 meaningful without domain validation.
 
+## Part 9 triangle counting
+
+Run exact GraphFrames triangle counting on the undirected graph:
+
+```bash
+python -m scripts.run_triangle_count
+```
+
+The command writes per-user `triangles` Parquet data and
+`triangle_count_stats.json`, including local clustering coefficients, average
+clustering, global transitivity, runtime, and a high-degree feasibility warning.
+The installed GraphFrames version is used in exact mode; no approximate mode is
+claimed or silently substituted. Exact triangle counting can require
+substantial memory for high-degree vertices.
+
 ## Part 3 dataset download
 
 Preview the dataset download without downloading data:
