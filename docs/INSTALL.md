@@ -100,6 +100,26 @@ JSON/CSV statistics under `outputs/reports/`. Existing outputs are skipped;
 use `--force` to rebuild them. On Windows, run the command in WSL2 or Docker
 because native Spark Parquet commits require Hadoop filesystem support.
 
+## Part 5 graph metrics
+
+After preprocessing, graph builders load the directed or symmetric undirected
+Parquet data as GraphFrames. Metrics are computed with distributed Spark
+aggregations:
+
+```python
+from src.graph.graph_builder import build_directed_graph
+from src.graph.graph_metrics import calculate_graph_metrics
+
+graph = build_directed_graph(spark)
+calculate_graph_metrics(graph, config.paths.results)
+```
+
+The command writes `data/results/degrees` and
+`data/results/graph_summary.json`. Degree aggregation remains keyed and
+distributed by vertex, so high-degree adjacency lists are not collected on the
+driver. Symmetric undirected input edges are counted as one logical edge for
+density and summary counts.
+
 ## Part 3 dataset download
 
 Preview the dataset download without downloading data:
