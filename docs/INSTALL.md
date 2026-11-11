@@ -60,6 +60,32 @@ requires access to Maven Central. A successful run prints the Spark version
 and PageRank values for a five-vertex in-memory graph. These values validate
 the installation only; they are not results for the SNAP dataset.
 
+## Docker
+
+Docker is an alternative to installing Spark's Windows-specific Hadoop
+utilities. Start Docker Desktop, then run these commands from the project
+directory:
+
+```powershell
+docker build -t influencesphere-smoke .
+docker run --rm influencesphere-smoke
+```
+
+The first build downloads the Python dependencies. The first container run
+also downloads the GraphFrames JVM package from Maven Central.
+
+## Part 2 configuration test
+
+The configured Spark session and hardware preflight can be checked from the
+project root with:
+
+```bash
+python -m scripts.test_spark_session
+```
+
+The preflight reports warnings for low available memory, CPU capacity, or
+free disk space; it does not prevent a run from starting.
+
 `setuptools` is pinned to provide the `distutils` compatibility module used by
 PySpark 3.5 on Python 3.12.
 

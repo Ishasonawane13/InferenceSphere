@@ -1,0 +1,28 @@
+paths:
+  project_root: .
+  data_raw: data/raw
+  data_processed: data/processed
+  results: data/results
+  spark_local_dir: data/processed/spark-tmp
+  checkpoint_dir: data/processed/checkpoints
+  reports: outputs/reports
+  charts: outputs/charts
+  tables: outputs/tables
+
+spark:
+  master: local[*]
+  app_name: InfluenceSphere
+  driver_memory: 2g
+  shuffle_partitions: 8
+  graphframes_package: io.graphframes:graphframes-spark3_2.12:0.12.3
+  ui_enabled: false
+
+algorithm:
+  random_seed: 42
+  pagerank_reset_probability: 0.15
+  pagerank_max_iterations: 10
+
+preflight:
+  minimum_memory_gb: 4
+  minimum_free_disk_gb: 5
+  minimum_cpu_cores: 2
