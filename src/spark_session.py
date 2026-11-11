@@ -26,6 +26,7 @@ def create_spark_session(config: AppConfig | None = None) -> SparkSession:
         .config("spark.jars.packages", config.spark.graphframes_package)
         .config("spark.ui.enabled", str(config.spark.ui_enabled).lower())
         .config("spark.local.dir", str(config.paths.spark_local_dir))
+        .config("spark.hadoop.io.native.lib.available", "false")
     )
     spark = builder.getOrCreate()
     configure_checkpointing(spark, config.paths.checkpoint_dir)

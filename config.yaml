@@ -2,6 +2,7 @@ paths:
   project_root: .
   data_raw: data/raw
   data_processed: data/processed
+  samples: data/samples
   results: data/results
   spark_local_dir: data/processed/spark-tmp
   checkpoint_dir: data/processed/checkpoints

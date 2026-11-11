@@ -86,6 +86,20 @@ python -m scripts.test_spark_session
 The preflight reports warnings for low available memory, CPU capacity, or
 free disk space; it does not prevent a run from starting.
 
+## Part 4 preprocessing
+
+Run preprocessing from the project root after the raw text file is available:
+
+```bash
+python scripts/preprocess_data.py --sample-percent 10
+```
+
+This writes cleaned directed and undirected Parquet data under
+`data/processed/`, an optional deterministic sample under `data/samples/`, and
+JSON/CSV statistics under `outputs/reports/`. Existing outputs are skipped;
+use `--force` to rebuild them. On Windows, run the command in WSL2 or Docker
+because native Spark Parquet commits require Hadoop filesystem support.
+
 ## Part 3 dataset download
 
 Preview the dataset download without downloading data:

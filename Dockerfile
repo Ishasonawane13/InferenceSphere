@@ -17,5 +17,6 @@ RUN python -m pip install --no-cache-dir -r requirements.txt
 COPY scripts ./scripts
 COPY src ./src
 COPY config.yaml .
+COPY tests ./tests
 
 CMD ["python", "scripts/smoke_test_graphframes.py"]

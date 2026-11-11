@@ -19,6 +19,7 @@ class PathsConfig:
     project_root: Path
     data_raw: Path
     data_processed: Path
+    samples: Path
     results: Path
     spark_local_dir: Path
     checkpoint_dir: Path
@@ -95,6 +96,7 @@ def load_config(config_path: Path | str = DEFAULT_CONFIG_PATH) -> AppConfig:
             project_root=project_root,
             data_raw=_path(_required(paths, "data_raw"), project_root),
             data_processed=_path(_required(paths, "data_processed"), project_root),
+            samples=_path(_required(paths, "samples"), project_root),
             results=_path(_required(paths, "results"), project_root),
             spark_local_dir=_path(_required(paths, "spark_local_dir"), project_root),
             checkpoint_dir=_path(_required(paths, "checkpoint_dir"), project_root),
