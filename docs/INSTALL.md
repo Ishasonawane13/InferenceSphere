@@ -8,11 +8,11 @@ This project uses:
 | --- | --- |
 | Python | 3.12.4 |
 | Java (JDK) | 17.0.12 |
-| Apache Spark / PySpark | 3.5.6 |
+| Apache Spark / PySpark | 3.5.8 |
 | GraphFrames Python client | `graphframes-py==0.12.3` |
 | GraphFrames Spark package | `io.graphframes:graphframes-spark3_2.12:0.12.3` |
 
-PySpark 3.5.6 uses Scala 2.12. The Maven coordinate above is the GraphFrames
+PySpark 3.5.8 uses Scala 2.12. The Maven coordinate above is the GraphFrames
 Spark 3 / Scala 2.12 artifact; Spark resolves it and its runtime dependencies
 from Maven Central when the smoke test starts. Do not substitute the older
 `graphframes:graphframes` Spark Packages coordinate.

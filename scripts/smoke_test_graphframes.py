@@ -4,9 +4,12 @@ import logging
 import os
 import sys
 
+from dotenv import load_dotenv
 from graphframes import GraphFrame
 from pyspark.sql import SparkSession
 
+
+load_dotenv()
 
 GRAPHFRAMES_PACKAGE = os.getenv(
     "GRAPHFRAMES_PACKAGE",
@@ -21,16 +24,17 @@ def main() -> int:
     )
     logger = logging.getLogger("influencesphere.smoke_test")
 
-    spark = (
-        SparkSession.builder.master(os.getenv("SPARK_MASTER", "local[2]"))
-        .appName("InfluenceSphere-GraphFrames-Smoke-Test")
-        .config("spark.jars.packages", GRAPHFRAMES_PACKAGE)
-        .config("spark.sql.shuffle.partitions", "2")
-        .config("spark.ui.enabled", "false")
-        .getOrCreate()
-    )
-
+    spark = None
     try:
+        spark = (
+            SparkSession.builder.master(os.getenv("SPARK_MASTER", "local[2]"))
+            .appName("InfluenceSphere-GraphFrames-Smoke-Test")
+            .config("spark.jars.packages", GRAPHFRAMES_PACKAGE)
+            .config("spark.sql.shuffle.partitions", "2")
+            .config("spark.ui.enabled", "false")
+            .getOrCreate()
+        )
+
         vertices = spark.createDataFrame(
             [("1",), ("2",), ("3",), ("4",), ("5",)],
             ["id"],
@@ -66,7 +70,8 @@ def main() -> int:
         logger.exception("GraphFrames PageRank smoke test failed")
         raise
     finally:
-        spark.stop()
+        if spark is not None:
+            spark.stop()
 
 
 if __name__ == "__main__":
