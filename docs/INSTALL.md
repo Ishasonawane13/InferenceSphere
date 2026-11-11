@@ -180,6 +180,21 @@ The installed GraphFrames version is used in exact mode; no approximate mode is
 claimed or silently substituted. Exact triangle counting can require
 substantial memory for high-degree vertices.
 
+## Part 10 SON
+
+Run SON over each source user's outgoing-neighbor transaction:
+
+```bash
+python -m scripts.run_son --min-support 0.01 --max-itemset-size 3
+```
+
+Repeat `--min-support` to run multiple thresholds. SON uses partition-local
+Apriori in phase 1 and global candidate counting in phase 2. Basket size is
+deterministically truncated after sorted neighbor deduplication, and globally
+infrequent singleton items are prefiltered by default. Results are written as
+`frequent_itemsets` Parquet, `frequent_itemsets.csv`, and `son_evaluation.json`
+under a threshold-specific directory in `data/results/`.
+
 ## Part 3 dataset download
 
 Preview the dataset download without downloading data:
