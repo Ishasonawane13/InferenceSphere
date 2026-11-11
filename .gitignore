@@ -1,0 +1,38 @@
+# Secrets and local environment
+.env
+.venv/
+venv/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Spark / Java runtime artifacts
+spark-warehouse/
+metastore_db/
+derby.log
+*.log
+
+# Local data and generated outputs
+data/raw/*
+data/processed/*
+data/results/*
+outputs/reports/*
+outputs/charts/*
+outputs/tables/*
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+!data/results/.gitkeep
+!outputs/reports/.gitkeep
+!outputs/charts/.gitkeep
+!outputs/tables/.gitkeep
+
+# IDE / OS
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
