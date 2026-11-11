@@ -86,6 +86,24 @@ python -m scripts.test_spark_session
 The preflight reports warnings for low available memory, CPU capacity, or
 free disk space; it does not prevent a run from starting.
 
+## Part 3 dataset download
+
+Preview the dataset download without downloading data:
+
+```bash
+python scripts/download_data.py --dry-run
+```
+
+The actual download is intentionally separate because the dataset is large:
+
+```bash
+python scripts/download_data.py
+```
+
+The command keeps `soc-LiveJournal1.txt.gz` in `data/raw/` and extracts
+`soc-LiveJournal1.txt` beside it. Interrupted HTTP downloads resume from a
+`.part` file when supported by the server; completed archives are skipped.
+
 `setuptools` is pinned to provide the `distutils` compatibility module used by
 PySpark 3.5 on Python 3.12.
 
