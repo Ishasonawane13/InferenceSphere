@@ -25,10 +25,16 @@ def main() -> int:
     logger = logging.getLogger("influencesphere.smoke_test")
 
     spark = None
+    ranked = None
     try:
         spark = (
             SparkSession.builder.master(os.getenv("SPARK_MASTER", "local[2]"))
-            .appName("InfluenceSphere-GraphFrames-Smoke-Test")
+            .appName(
+                os.getenv(
+                    "SPARK_APP_NAME",
+                    "InfluenceSphere-GraphFrames-Smoke-Test",
+                )
+            )
             .config("spark.jars.packages", GRAPHFRAMES_PACKAGE)
             .config("spark.sql.shuffle.partitions", "2")
             .config("spark.ui.enabled", "false")
@@ -70,6 +76,8 @@ def main() -> int:
         logger.exception("GraphFrames PageRank smoke test failed")
         raise
     finally:
+        if ranked is not None:
+            ranked.unpersist()
         if spark is not None:
             spark.stop()
 
