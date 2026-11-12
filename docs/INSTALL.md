@@ -195,6 +195,22 @@ infrequent singleton items are prefiltered by default. Results are written as
 `frequent_itemsets` Parquet, `frequent_itemsets.csv`, and `son_evaluation.json`
 under a threshold-specific directory in `data/results/`.
 
+## Part 11 CURE
+
+Run sampled CURE clustering over graph-derived features:
+
+```bash
+python -m scripts.run_cure --clusters 2 --representatives 5 --alpha 0.2 --sample-size 1000
+```
+
+Feature assembly is distributed in Spark and uses in/out/total degree,
+PageRank, HITS, and triangle metrics. Missing algorithm outputs are filled
+with zero, then features receive `log1p` and standard scaling. Only the
+deterministic seeded sample is clustered on the driver with real CURE
+representative-point merging; the output JSON reports the exact number of
+users
+clustered and does not claim that unsampled users were clustered.
+
 ## Part 3 dataset download
 
 Preview the dataset download without downloading data:
