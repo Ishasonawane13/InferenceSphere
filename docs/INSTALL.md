@@ -246,6 +246,21 @@ outputs are skipped unless `--force` is supplied; each algorithm records
 waits for PageRank, HITS, and triangle outputs. `--benchmark` writes the
 deterministic scale benchmark under `data/results/benchmark/`.
 
+## Part 14 dashboard
+
+Install the dashboard dependencies and start Streamlit from the repository
+root:
+
+```bash
+pip install -r requirements.txt
+streamlit run dashboard/app.py
+```
+
+The Overview page reads only persisted pipeline artifacts under
+`data/results/`. Missing outputs are shown as “Results not available - run the
+pipeline.” The About / Methodology section documents the graph conventions,
+exact triangle labeling, and artifact-only behavior.
+
 ## Part 3 dataset download
 
 Preview the dataset download without downloading data:
