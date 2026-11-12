@@ -43,6 +43,10 @@ class AlgorithmConfig:
     random_seed: int
     pagerank_reset_probability: float
     pagerank_max_iterations: int
+    cure_k: int
+    cure_representatives: int
+    cure_alpha: float
+    cure_sample_size: int
 
 
 @dataclass(frozen=True)
@@ -130,6 +134,10 @@ def load_config(config_path: Path | str = DEFAULT_CONFIG_PATH) -> AppConfig:
             pagerank_max_iterations=int(
                 _required(algorithm, "pagerank_max_iterations")
             ),
+            cure_k=int(algorithm.get("cure_k", 2)),
+            cure_representatives=int(algorithm.get("cure_representatives", 5)),
+            cure_alpha=float(algorithm.get("cure_alpha", 0.5)),
+            cure_sample_size=int(algorithm.get("cure_sample_size", 500)),
         ),
         preflight=PreflightConfig(
             minimum_memory_gb=float(_required(preflight, "minimum_memory_gb")),

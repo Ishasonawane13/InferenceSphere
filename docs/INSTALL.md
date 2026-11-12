@@ -195,6 +195,58 @@ infrequent singleton items are prefiltered by default. Results are written as
 `frequent_itemsets` Parquet, `frequent_itemsets.csv`, and `son_evaluation.json`
 under a threshold-specific directory in `data/results/`.
 
+## Part 11 CURE clustering
+
+CURE uses the directed graph's in-degree, out-degree, total degree, PageRank,
+HITS hub/authority scores, and the per-user triangle count and clustering
+coefficient. Run Parts 6, 7, and 9 first so their Parquet metric tables exist:
+
+```bash
+python -m scripts.run_pagerank
+python -m scripts.run_hits
+python -m scripts.run_triangle_count
+python -m scripts.run_cure
+```
+
+By default, CURE forms 2 clusters using 5 representative points per cluster,
+shrinks representatives halfway toward their centroids, and clusters a
+deterministic 500-user sample. Override these options with `--k`, `--c`,
+`--alpha`, and `--sample-size`; defaults are in `config.yaml`. Null/NaN or
+missing joined metrics are filled with zero, then features are transformed by
+`log1p` and distributed population-standard scaling. Constant features become
+zero.
+
+The full standardized feature table is saved at `data/results/cure/feature_table`.
+Only the selected sample is clustered and written to `clusters`, with one row
+per clustered user containing `user_id`, `cluster_id`, and the eight scaled
+features. `cluster_summary` contains sample cluster sizes and mean features;
+`cure_evaluation.json` records silhouette, runtime, parameters, user counts,
+sampling policy, and limitations. Users outside the sample are not assigned a
+cluster. CURE's hierarchical merges and silhouette calculation run on the
+driver, so keep the sample size within available driver memory.
+
+## Part 12 evaluation and scalability
+
+Write comparisons from whatever algorithm reports already exist (missing runs
+are explicitly marked `pending`):
+
+```bash
+python -m scripts.run_evaluation --comparisons-only
+```
+
+Run the deterministic 1%, 5%, 10%, and 25% benchmarks, then full data only if
+the configured memory, CPU, and disk preflight thresholds pass:
+
+```bash
+python -m scripts.run_evaluation --benchmark-only
+```
+
+Benchmark and comparison reports are written under `outputs/tables/` as JSON
+and CSV. Each benchmark row includes sample size, algorithm, parameters,
+runtime, and result count. Memory usage is `null` because Spark's JVM/worker
+memory is not measured by this runner. Individual failed runs record their
+error and do not receive fabricated metrics.
+
 ## Part 3 dataset download
 
 Preview the dataset download without downloading data:

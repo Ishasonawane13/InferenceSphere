@@ -32,6 +32,10 @@ def main(argv: list[str] | None = None) -> int:
                     random_seed=loaded.algorithm.random_seed,
                     pagerank_reset_probability=loaded.algorithm.pagerank_reset_probability,
                     pagerank_max_iterations=args.max_iterations,
+                    cure_k=loaded.algorithm.cure_k,
+                    cure_representatives=loaded.algorithm.cure_representatives,
+                    cure_alpha=loaded.algorithm.cure_alpha,
+                    cure_sample_size=loaded.algorithm.cure_sample_size,
                 ),
                 preflight=loaded.preflight,
             )

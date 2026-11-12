@@ -22,6 +22,10 @@ algorithm:
   random_seed: 42
   pagerank_reset_probability: 0.15
   pagerank_max_iterations: 10
+  cure_k: 2
+  cure_representatives: 5
+  cure_alpha: 0.5
+  cure_sample_size: 500
 
 preflight:
   minimum_memory_gb: 4

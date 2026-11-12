@@ -18,6 +18,7 @@ derby.log
 *.log
 
 # Local data and generated outputs
+Dataset/
 data/raw/*
 data/processed/*
 data/results/*
