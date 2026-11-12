@@ -53,9 +53,23 @@ def load_csv(
 ) -> pd.DataFrame | None:
     """Load a CSV artifact, returning None when it is unavailable."""
     artifact = Path(path)
-    if not artifact.is_file():
+    if not artifact.exists():
         return None
     try:
+        if artifact.is_dir():
+            files = sorted(artifact.glob("part-*.csv"))
+            if not files:
+                return None
+            return pd.concat(
+                [
+                    pd.read_csv(
+                        file,
+                        usecols=list(usecols) if usecols else None,
+                    )
+                    for file in files
+                ],
+                ignore_index=True,
+            )
         return pd.read_csv(artifact, usecols=list(usecols) if usecols else None)
     except (OSError, ValueError) as error:
         LOGGER.warning("Could not load CSV artifact %s: %s", artifact, error)

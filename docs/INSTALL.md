@@ -261,6 +261,14 @@ The Overview page reads only persisted pipeline artifacts under
 pipeline.” The About / Methodology section documents the graph conventions,
 exact triangle labeling, and artifact-only behavior.
 
+## Part 15 dashboard pages
+
+The dashboard also includes Influencer Analytics, Community Discovery, and
+Network Structure pages. They provide ranking comparisons, user search,
+community filtering, structural distributions, and CSV downloads. Community
+network rendering uses only the saved sampled subgraph and caps the displayed
+graph at 1,000 nodes and 2,000 edges; it never renders the full network.
+
 ## Part 3 dataset download
 
 Preview the dataset download without downloading data:

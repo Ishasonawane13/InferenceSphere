@@ -7,6 +7,9 @@ from pathlib import Path
 import streamlit as st
 
 from dashboard.pages.overview import render as render_overview
+from dashboard.pages.influencers import render as render_influencers
+from dashboard.pages.communities import render as render_communities
+from dashboard.pages.network_structure import render as render_network
 from src.config import load_config
 
 
@@ -45,11 +48,26 @@ def main() -> None:
     with st.sidebar:
         st.title("InfluenceSphere")
         st.caption("Large-Scale Social Network Intelligence Platform")
-        page = st.radio("Navigate", ["Overview", "About / Methodology"])
+        page = st.radio(
+            "Navigate",
+            [
+                "Overview",
+                "Influencer Analytics",
+                "Community Discovery",
+                "Network Structure",
+                "About / Methodology",
+            ],
+        )
         st.divider()
         st.caption(f"Results: `{config.paths.results}`")
     if page == "Overview":
         render_overview(Path(config.paths.results))
+    elif page == "Influencer Analytics":
+        render_influencers(Path(config.paths.results))
+    elif page == "Community Discovery":
+        render_communities(Path(config.paths.results))
+    elif page == "Network Structure":
+        render_network(Path(config.paths.results))
     else:
         st.title("About / Methodology")
         st.markdown(
