@@ -269,6 +269,15 @@ community filtering, structural distributions, and CSV downloads. Community
 network rendering uses only the saved sampled subgraph and caps the displayed
 graph at 1,000 nodes and 2,000 edges; it never renders the full network.
 
+## Part 16 dashboard pages
+
+The remaining pages cover SON frequent patterns, CURE user segmentation, and
+performance analytics. CURE PCA is computed only for artifacts where the
+clustered sample is identifiable; assigned remaining users are not silently
+treated as sampled users. Performance tables preserve `pending` statuses for
+experiments that have not been run, and every page offers CSV downloads for
+the displayed real results.
+
 ## Part 3 dataset download
 
 Preview the dataset download without downloading data:

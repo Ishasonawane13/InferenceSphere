@@ -10,6 +10,9 @@ from dashboard.pages.overview import render as render_overview
 from dashboard.pages.influencers import render as render_influencers
 from dashboard.pages.communities import render as render_communities
 from dashboard.pages.network_structure import render as render_network
+from dashboard.pages.patterns import render as render_patterns
+from dashboard.pages.segmentation import render as render_segmentation
+from dashboard.pages.performance import render as render_performance
 from src.config import load_config
 
 
@@ -55,6 +58,9 @@ def main() -> None:
                 "Influencer Analytics",
                 "Community Discovery",
                 "Network Structure",
+                "Frequent Pattern Mining",
+                "User Segmentation",
+                "Performance Analytics",
                 "About / Methodology",
             ],
         )
@@ -68,6 +74,12 @@ def main() -> None:
         render_communities(Path(config.paths.results))
     elif page == "Network Structure":
         render_network(Path(config.paths.results))
+    elif page == "Frequent Pattern Mining":
+        render_patterns(Path(config.paths.results))
+    elif page == "User Segmentation":
+        render_segmentation(Path(config.paths.results))
+    elif page == "Performance Analytics":
+        render_performance(Path(config.paths.results), Path(config.paths.tables))
     else:
         st.title("About / Methodology")
         st.markdown(

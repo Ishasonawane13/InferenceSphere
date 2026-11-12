@@ -6,6 +6,7 @@ import pandas as pd
 
 from dashboard.components.loaders import load_csv, load_json, load_parquet
 from dashboard.pages.communities import _network_figure
+from dashboard.pages.segmentation import _pca
 from dashboard.visualizations import bar, histogram
 
 
@@ -43,6 +44,20 @@ class DashboardArtifactTests(unittest.TestCase):
         edges = pd.DataFrame({"src": [1], "dst": [2]})
         figure = _network_figure(nodes, edges)
         self.assertGreaterEqual(len(figure.data), 2)
+
+    def test_pca_projects_feature_vectors(self) -> None:
+        frame = pd.DataFrame(
+            {
+                "features": [
+                    [1.0, 0.0, 0.0],
+                    [0.0, 1.0, 0.0],
+                    [0.0, 0.0, 1.0],
+                ]
+            }
+        )
+        projected = _pca(frame)
+        self.assertEqual(list(projected.columns), ["pca_1", "pca_2"])
+        self.assertEqual(len(projected), 3)
 
 
 if __name__ == "__main__":
