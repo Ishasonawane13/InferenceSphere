@@ -211,6 +211,20 @@ representative-point merging; the output JSON reports the exact number of
 users
 clustered and does not claim that unsampled users were clustered.
 
+## Part 12 evaluation and benchmarking
+
+Generate comparison tables and validate available result schemas:
+
+```bash
+python -m scripts.run_evaluation
+```
+
+Comparison and validation outputs are written to `outputs/tables/`. Missing
+algorithm results are recorded as `pending`; no timings, scores, or counts are
+invented. The `benchmark_scales` API in
+`src/evaluation/benchmark.py` creates deterministic 1%, 5%, 10%, and 25%
+sample-size records, and includes full scale only when explicitly enabled.
+
 ## Part 3 dataset download
 
 Preview the dataset download without downloading data:
