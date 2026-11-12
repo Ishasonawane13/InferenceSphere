@@ -225,6 +225,27 @@ invented. The `benchmark_scales` API in
 `src/evaluation/benchmark.py` creates deterministic 1%, 5%, 10%, and 25%
 sample-size records, and includes full scale only when explicitly enabled.
 
+## Part 13 pipeline runner
+
+Run all algorithms in dependency order:
+
+```bash
+python -m scripts.run_pipeline --all
+```
+
+Run one algorithm or override Spark settings:
+
+```bash
+python -m scripts.run_pipeline --algorithm pagerank --iterations 10 \
+  --spark-conf spark.sql.shuffle.partitions=8
+```
+
+The runner writes `pipeline_status.json` under the result directory. Existing
+outputs are skipped unless `--force` is supplied; each algorithm records
+`pending`, `running`, `done`, or `failed`, with timestamps and runtime. CURE
+waits for PageRank, HITS, and triangle outputs. `--benchmark` writes the
+deterministic scale benchmark under `data/results/benchmark/`.
+
 ## Part 3 dataset download
 
 Preview the dataset download without downloading data:

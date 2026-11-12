@@ -10,7 +10,10 @@ from src.utils.helpers import ensure_directories
 from src.utils.preflight import check_preflight
 
 
-def create_spark_session(config: AppConfig | None = None) -> SparkSession:
+def create_spark_session(
+    config: AppConfig | None = None,
+    spark_conf: dict[str, str] | None = None,
+) -> SparkSession:
     """Build a Spark session from application configuration."""
     config = config or load_config()
     check_preflight(config.preflight, config.paths.project_root)
@@ -28,6 +31,8 @@ def create_spark_session(config: AppConfig | None = None) -> SparkSession:
         .config("spark.local.dir", str(config.paths.spark_local_dir))
         .config("spark.hadoop.io.native.lib.available", "false")
     )
+    for key, value in (spark_conf or {}).items():
+        builder = builder.config(key, value)
     spark = builder.getOrCreate()
     configure_checkpointing(spark, config.paths.checkpoint_dir)
     return spark
